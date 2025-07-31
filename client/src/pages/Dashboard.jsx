@@ -28,6 +28,24 @@ const Dashboard = () => {
     }
     setLoading(false);
   };
+  const handleDelete = async (id) => {
+  try {
+    const token = await getToken();
+    const { data } = await axios.delete(`/api/user/delete-creation/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (data.success) {
+      setCreations((prev) => prev.filter((item) => item.id !== id));
+      toast.success("Creation deleted successfully");
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    toast.error(error.message || "Failed to delete creation");
+  }
+};
+
   useEffect(() => {
     getDashboardData();
   }, []);
@@ -65,7 +83,7 @@ const Dashboard = () => {
         <div className="space-y-3">
         <p className="mt-6 mb-4">Recent Creations</p>
         {
-            creations.map((item)=><CreationItem key={item.id} item={item}/>)
+            creations.map((item)=><CreationItem key={item.id} item={item} onDelete={handleDelete}/>)
         }
       </div>
       )
