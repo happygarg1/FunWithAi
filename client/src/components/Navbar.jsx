@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
 
     <div className='fixec z-5 w-full backdrop-blur-2xl flex justify-between items-center py-3 px-4 sm:px-20 xl:px-32 cursor-pointer'>
-        <img src={assets.logo} alt="" className='w-32 sm:w-44 cursor-pointer' onClick={()=>navigate('/')}/>
+        <img src={assets.logo} alt="" className='w-18 h-18 sm:w-44 cursor-pointer' onClick={()=>navigate('/')}/>
 
         {
             user?<UserButton/>:(
