@@ -5,6 +5,7 @@ import axios from "axios";
 import {v2 as cloudinary} from 'cloudinary'
 import fs from 'fs'
 import pdf from "pdf-parse/lib/pdf-parse.js";
+import { log } from "console";
 
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -39,7 +40,8 @@ export const generateArticle = async (req, res) => {
     });
 
     const content = response.choices[0].message.content;
-
+    // console.log(content);
+    
     await sql` INSERT INTO creations (user_id,prompt,content,type) VALUES (${userId},${prompt},${content},'article')`;
 
     if (plan !== 'premium') {
